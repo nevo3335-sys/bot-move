@@ -117,7 +117,8 @@
             <button class="close-ad-btn" id="closeAdBtn" disabled onclick="closeAdPopup()">✕</button>
             <h3 style="margin-top:0; color:#f97316;">✨ חסות מיוחדת ✨</h3>
             <p id="adTimerText" style="font-size: 0.9rem;">פרסומת זו תיסגר בעוד <span id="adTimerCount">3</span> שניות...</p>
-            <img src="C:\Users\tzuky\Downloads\בוט סרטים\תמונות לפרסומות\WhatsApp Image 2026-07-17 at 14.39.56.jpeg" alt="פרסומת" style="max-width:100%; border-radius:12px; max-height: 250px; object-fit: contain;">
+            <!-- פרסומת ראשונה -->
+            <img src="C:\Users\tzuky\Downloads\images\WhatsApp Image 2026-07-17 at 14.39.56.jpeg" alt="פרסומת 1" style="max-width:100%; border-radius:12px; max-height: 250px; object-fit: contain;">
         </div>
     </div>
 </div>
@@ -320,7 +321,7 @@
     }
 
     // =========================================================================
-    // 📢 נתב פרסומות מתקדם
+    // 📢 נתב פרסומות מתקדם המשלב את שתי הפרסומות שהוגדרו
     // =========================================================================
     function triggerAdIfNeeded() {
         if (adFreeUsers.includes(currentUser)) return; 
@@ -328,9 +329,9 @@
         messageCounter++;
         
         if (messageCounter % 3 === 0) {
-            showAdPopup(); 
+            showAdPopup(); // משתמש בפרסומת הראשונה (פופאפ)
         } else if (messageCounter % 5 === 0) {
-            showInChatPromoBanner(); 
+            showInChatAdBox(); // משתמש בפרסומת השנייה (בתוך הצ'אט)
         }
     }
 
@@ -350,7 +351,6 @@
         btn.disabled = true;
         let timeLeft = 3;
         
-        // אתחול טקסט ומונה בצורה בטוחה בלי לדרוס את האלמנטים עצמם
         timerText.innerHTML = `פרסומת זו תיסגר בעוד <span id="adTimerCount">${timeLeft}</span> שניות...`;
 
         currentTimerInterval = setInterval(() => {
@@ -375,12 +375,14 @@
         document.getElementById('adModal').style.display = 'none';
     }
 
-    function showInChatPromoBanner() {
+    function showInChatAdBox() {
         const chat = document.getElementById('chat');
-        const promoDiv = document.createElement('div');
-        promoDiv.className = 'promo-banner';
-        promoDiv.innerHTML = `🌟 <b>הבוט האולטימטיבי לסרטים וסדרות!</b> 🌟<br>מחפשים הנאה בטוחה לכל המשפחה? הגעתם למקום הנכון. שתפו חברים והמשיכו ליהנות מהמבחר העצום!`;
-        chat.appendChild(promoDiv);
+        const adDiv = document.createElement('div');
+        adDiv.className = 'ad-box';
+        // משתמש בפרסומת השנייה (image_0.jpg)
+        adDiv.innerHTML = `🌟 <b>חסות מיוחדת ממערכת סרטים</b> 🌟<br>
+        <img src="C:\\Users\\tzuky\\Downloads\\images\\image_0.jpg" alt="פרסומת 2">`;
+        chat.appendChild(adDiv);
         chat.scrollTop = chat.scrollHeight;
     }
 
@@ -794,7 +796,7 @@
 
         if (cleanVal.includes("משחקים") || cleanVal.includes("משחק") || cleanVal.includes("הפעל משחק")) {
             let gamesMsg = `<b>🎮 מרכז המשחקים וההגרלות המלא:</b><br><br>
-            במערכת שלנו ישנם מספר משחקים והפעלות מהנות שתוכל לשחק איתي בכל רגע שתחפוץ:<br><br>
+            במערכת שלנו ישנם מספר משחקים והפעלות מהנות שתוכל לשחק איתי בכל רגע שתחפוץ:<br><br>
             1. <b>הטלת מטבע ("עץ או פלי"):</b> נותן לי להטיל מטבע וירטואלי ולהגיד לך האם יצא עץ 🌳 או פלי 🪙.<br>
             2. <b>הטלת קוביה ("זרוק קוביה"):</b> מטיל קוביות משחק סטנדרטיות ומגריל עבורך מספר אקראי בין 1 ל-6 🎲.<br>
             3. <b>קלף רנדומלי ("קסם"):</b> מבצע בחירה חשאית של קלף רנדומלי מתוך חפיסת קלפים מלאה 🪄.<br>
